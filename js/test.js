@@ -22,28 +22,98 @@ const IMG_PATH = 'https://image.tmdb.org/t/p/w1280'
 const SEARCH_URL = 'https://api.themoviedb.org/3/search/movie?api_key=d19921ed5574a2120509b5c8f8d47f40&query="' 
 
 //Getting elements from the dom
-const main = document.getElementById('main')
+const popular = document.getElementById('popular')
 const kids = document.getElementById('kids')
 const drama = document.getElementById('drama')
 const form = document.getElementById('form')
 const search = document.getElementById('search')
 
-// Get Initial Movies
-getMovies(API_POPULARITY_URL)
-getMovies(API_KIDS_URL)
-getMovies(API_DRAMA_URL)
 
-async function getMovies(url) {
+
+// Get Popular Movies
+getPopularMovies(API_POPULARITY_URL)
+
+async function getPopularMovies(url) {
   const res = await fetch(url) //returns a promise of the data
   const data = await res.json() //returns the actual data
 
-  showMovies(data.results)
+  showPopularMovies(data.results)
 }
 
 //Creating a function to show the movies
-function showMovies(movies) {
-  main.innerHTML = ''
+function showPopularMovies(movies) {
+  popular.innerHTML = ''
+
+  //looping through the movie data
+  movies.forEach((movie) => {
+    const {title, poster_path, vote_average, overview} = movie
+
+    const movieEl = document.createElement('div')
+    movieEl.classList.add('movie')
+
+    movieEl.innerHTML = `
+			<img src="${IMG_PATH + poster_path}" alt="${title}">
+			<div class="movie-info">
+				<h3>${title}</h3>
+				<span class="${getClassByRate(vote_average)}">${vote_average}</span>
+			</div>
+			<div class="overview">
+				<h3>Overview</h3>
+				<p>${overview}</p>
+			</div>
+    `
+    popular.appendChild(movieEl)
+  })
+}
+
+// Get Kids Movies
+getKidsMovies(API_KIDS_URL)
+
+async function getKidsMovies(url) {
+  const res = await fetch(url) //returns a promise of the data
+  const data = await res.json() //returns the actual data
+
+  showKidsMovies(data.results)
+}
+
+//Creating a function to show the movies
+function showKidsMovies(movies) {
   kids.innerHTML = ''
+
+  //looping through the movie data
+  movies.forEach((movie) => {
+    const {title, poster_path, vote_average, overview} = movie
+
+    const movieEl = document.createElement('div')
+    movieEl.classList.add('movie')
+
+    movieEl.innerHTML = `
+			<img src="${IMG_PATH + poster_path}" alt="${title}">
+			<div class="movie-info">
+				<h3>${title}</h3>
+				<span class="${getClassByRate(vote_average)}">${vote_average}</span>
+			</div>
+			<div class="overview">
+				<h3>Overview</h3>
+				<p>${overview}</p>
+			</div>
+    `
+    kids.appendChild(movieEl)
+  })
+}
+
+// Get Drama
+getDramaMovies(API_DRAMA_URL)
+
+async function getDramaMovies(url) {
+  const res = await fetch(url) //returns a promise of the data
+  const data = await res.json() //returns the actual data
+
+  showDramaMovies(data.results)
+}
+
+//Creating a function to show the movies
+function showDramaMovies(movies) {
   drama.innerHTML = ''
 
   //looping through the movie data
@@ -57,15 +127,13 @@ function showMovies(movies) {
 			<img src="${IMG_PATH + poster_path}" alt="${title}">
 			<div class="movie-info">
 				<h3>${title}</h3>
-				<span class="${getClassByRate}">${vote_average}</span>
+				<span class="${getClassByRate(vote_average)}">${vote_average}</span>
 			</div>
 			<div class="overview">
 				<h3>Overview</h3>
 				<p>${overview}</p>
 			</div>
     `
-    main.appendChild(movieEl)
-    kids.appendChild(movieEl)
     drama.appendChild(movieEl)
   })
 }
@@ -89,7 +157,7 @@ form.addEventListener('submit', (e) => {
   const searchTerm = search.value
 
   if (searchTerm && searchTerm !== '') {
-    getMovies( SEARCH_URL + searchTerm ) 
+    getPopularMovies( SEARCH_URL + searchTerm ) 
 
     search.value = ''
   } else {
