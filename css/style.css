@@ -57,6 +57,7 @@ header {
 main {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 6.5%;
 }
 
 main h2 {
@@ -70,15 +71,15 @@ section {
 }
 
 .movie {
-  width: 350px;
-  height: 500px;
+  width: 300px;
+  height: 600;
   margin: 1rem;
   background-color: var(--secondary-color);
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  border-radius: 50px;
+  border-radius: 10px;
 }
 
 .movie img{
