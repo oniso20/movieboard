@@ -1,20 +1,3 @@
-
-// document.querySelector('button').addEventListener('click', getFetch)
-
-// function getFetch(){
-//   const choice = document.querySelector('input').value
-//   const url = 'https://pokeapi.co/api/v2/pokemon/'+choice //insert link
-
-//   fetch(url)
-//       .then(res => res.json()) // parse response as JSON
-//       .then(data => {
-//         console.log(data)
-//       })
-//       .catch(err => {
-//           console.log(`error ${err}`)
-//       });
-// }
-
 const API_POPULARITY_URL = 'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=d19921ed5574a2120509b5c8f8d47f40'
 const API_KIDS_URL = 'https://api.themoviedb.org/3/discover/movie?certification_country=US&certification.lte=G&sort_by=popularity.desc&api_key=d19921ed5574a2120509b5c8f8d47f40'
 const API_DRAMA_URL = 'https://api.themoviedb.org/3/discover/movie?with_genres=18&sort_by=vote_average.desc&vote_count.gte=10&api_key=d19921ed5574a2120509b5c8f8d47f40'
